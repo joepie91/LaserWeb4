@@ -120,7 +120,7 @@ function loadSvg(state, settings, { file, content }, id = uuidv4()) {
                 path.push(tx, ty);
             };
             if (child.name === 'path') {
-                let paths = pathStrToRawPaths(child.attrs.d, 25.4, 1, .1 * pxPerInch / 25.4, error => console.log(error));
+                let paths = pathStrToRawPaths(child.attrs.d, 25.4, 1, 1 * pxPerInch / 25.4, error => console.log(error));
                 if (paths)
                     for (let path of paths) {
                         let p = [];
@@ -326,7 +326,7 @@ export function cloneDocument(forest, rootId, renamer=(d)=>(d.name))
             item.children=item.children.map(c=>(idMap[c]));
             return item;
         })
-    
+
     return docs;
 }
 
@@ -336,7 +336,7 @@ export function documents(state, action) {
         case 'DOCUMENT_SELECT': {
             let ids = getSubtreeIds(state, action.payload.id);
             return state.map(o => Object.assign({}, o, { selected: ids.includes(o.id) }));
-            
+
         }
 
         case 'DOCUMENT_TOGGLE_SELECT': {
@@ -381,7 +381,7 @@ export function documents(state, action) {
                         return `${p} (${countOf(p)})`
                     }) : `${d.name} (${countOf(d.name)})`
                 })
-                if (cloned.length) 
+                if (cloned.length)
                     clones= [...clones,...cloned];
             })
 
@@ -400,7 +400,7 @@ export function documents(state, action) {
             return state.map((o)=>{
                 if (!o.selected) return o;
                 return Object.assign({},o,action.payload.color)
-            }) 
+            })
             return state;
         }
 
